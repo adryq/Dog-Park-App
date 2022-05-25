@@ -1,1 +1,7 @@
-# Dog-Park-App
+
+
+Client ID
+3j7o2zX_ShAWpWMxx8WmMg
+
+API Key
+TKY62VbV4yApJG6Jv_-MyMs6ggkybvlkdEd02BTR20TzD_o7YkoifZdKHAUy4WDU3v0rBkt6Xx922MF0jc8bm1GhZb_SNw72DW-Z3cYrtiZ95IvB64Bl_Y9WLH-NYnYx
