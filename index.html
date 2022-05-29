@@ -5,9 +5,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+  
+        <!-- <style type="text/tailwindcss">
+          @layer utilities {
+            .content-auto {
+              content-visibility: auto;
+            }
+          }
+        </style> -->
     <title>National Park App</title>
 </head>
 <body>
+
+  <!-- Header -->
+  <header class="text-left bg-green-200 py-8 pl-10">
+    <h1 class="font-bold text-5xl">National Park App</h1>
+    <p class="font-normal text-1xl text-gray-500 italic-80">Find your favorite hiking trail!</p>
+  </header>
+ 
+  <!-- Main Page -->
+  <section class="bg-[url('./assets/Images/forest.jpeg')] bg-cover bg-no-repeat" id="background-image">
+  
+    <!-- State Selection Button -->
+    <div class="">
+    <button class="bg-green-200 px-4 py-2 rounded ml-10 mt-4 w-32" id="state-btn">Select State</button>
     
+    <div class="bg-green-100 hidden flex flex-col rounded mt-1 ml-10 p-2 w-32 text-sm" id="dropdown-state">
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Alabama</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Alaska</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Arizona</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Arkansas</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">California</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Colorado</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Connecticut</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Delaware</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Florida</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Georgia</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Hawaii</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Idaho</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Illinois</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Indiana</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Iowa</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Kansas</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Kentucky</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Louisiana</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Maine</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Maryland</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Massachusetts</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Michigan</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Minnesota</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Mississippi</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Missouri</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Montana</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Nebraska</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Nevada</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">New Hampshire</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">New Jersey</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">New Mexico</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">New York</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">North Carolina</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">North Dakota</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Ohio</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Oklahoma</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Oregon</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Pennsylvania</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Rhode Island</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">South Carolina</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">South Dakota</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Tennessee</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Texas</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Utah</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Vermont</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Virginia</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Washington</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">West Virginia</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Wisconsin</a>
+      <a href="#" class="px-2 py-1 hover:bg-white rounded">Wyoming</a>      
+ 
+    </div>
+  </div>
+</section>
+
+  
+
+<script src="./assets/js/script.js"></script>
 </body>
 </html>
