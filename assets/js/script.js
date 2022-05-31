@@ -1,5 +1,6 @@
 //api key storage
-var apiKey = "&appid=755c65e42d689835b8fd27ff1e21603c";
+var apiKey = "&appid=755c65e42d689835b8fd27ff1e21603c"; //weather api key
+var parkKey = "" //park info key
 
 var cities = [];
 //using london as example
@@ -18,6 +19,22 @@ document.addEventListener('DOMContentLoaded', ()=> {
         if(dropdownState.classList.contains ('hidden')){
             dropdownState.classList.remove ('hidden');
             dropdownState.classList.add('flex');
+
+            var states  = ['AL', 'AK', 'AZ', 'AR', 
+'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 
+'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 
+'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 
+'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 
+'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 
+'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 
+'WA', 'WV', 'WI', 'WY']
+
+var select = document.querySelector('#select')
+for (let i = 0; i < states.length; i++) {
+    var option = document.createElement('option')
+    option.textContent = states[i]
+    select.appendChild(option)
+}
            
         }
         else{
@@ -80,3 +97,26 @@ var displayWeather = function (weather, searchCity) {
     var lat = weather.coord.lat;
     var lon = weather.coord.lon;
 }
+
+// In HTML make a select tag and fill the options with State abbreviations 
+//ON click on state, your store that abbrevation in a variable 
+//When you run the park fetch, pass in that variable 
+var stateCode = document.querySelctor('#select').value 
+fetch("https://developer.nps.gov/api/v1/parks?stateCode=" + stateCode + "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs")
+.then(function (data) {
+    data.json().then(function (data) {
+        // This is whewre you manipulate the data for your code 
+        console.log(data)
+        console.log(data.fullName)
+        // Create some kind of HTML element to display nthe information to the user
+        // Then change the texdt content to whatever data you want to display
+        //Add it to the page using appendChild 
+    })
+})
+
+
+// on click that targets the select statement 
+// make another button that function submit
+
+// store the value of the select tags to store the state the user clicked on 
+
