@@ -1,6 +1,5 @@
-
 var apiKey = "&appid=755c65e42d689835b8fd27ff1e21603c"; //weather api key
-var parkKey = "" //park info key
+var stateCode;
 
 var cities = [];
 //using london as example
@@ -104,18 +103,28 @@ for (let i = 0; i < states.length; i++) {
 //ON click on state, your store that abbrevation in a variable 
 //When you run the park fetch, pass in that variable 
 
+function changeResult () {
+    
+    console.log(stateCode)
+    getParkInfo(stateCode)
+    // return stateCode 
+}
+
 const stateApiKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"
 const searchURL = "https://developer.nps.gov/api/v1/parks?stateCode?pa="
-var stateCode = document.querySelector('#select').value 
 
 
-
-fetch(searchURL + stateCode + stateApiKey)
-.then(function (response) {
-    response.json().then(function (data) {
+//var stateCode = document.querySelector('#select').value
+function getParkInfo(stateCode){
+    fetch(stateApiKey + stateCode + stateApiKey)
+    .then(function (response) {
+        response.json().then(function (data) {
         // This is whewre you manipulate the data for your code 
         console.log(data);
         parkEl = document.querySelector('#park-name')
+            while(parkEl.firstChild){
+                parkEl.removeChild(parkEl.firstChild)
+            }
         for (i = 0; i < 5; i++) {
         // Create some kind of HTML element to display nthe information to the user document.createElement("h4")
         // Then change the texdt content to whatever data you want to display document.textcontent(#)
@@ -129,6 +138,7 @@ fetch(searchURL + stateCode + stateApiKey)
 
     }) 
 })
+}
 
 
 // var show = document.getElementById("park-info");
