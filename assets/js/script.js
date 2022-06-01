@@ -1,4 +1,4 @@
-//api key storage
+
 var apiKey = "&appid=755c65e42d689835b8fd27ff1e21603c"; //weather api key
 var parkKey = "" //park info key
 
@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         if(dropdownState.classList.contains ('hidden')){
             dropdownState.classList.remove ('hidden');
             dropdownState.classList.add('flex');
+
 
             var states  = ['AL', 'AK', 'AZ', 'AR', 
 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 
@@ -46,65 +47,70 @@ for (let i = 0; i < states.length; i++) {
     )
 
 })
-
+//states.addEventListener('click', () =>) {
+    
 
 //retrieving the api with the city that we entered
-var CityWeather = function (city) {
-    var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=london&units=imperial${apiKey}`;
+// var CityWeather = function (city) {
+//     var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=london&units=imperial${apiKey}`;
 
-    fetch(apiURL)
-        .then(function (response) {
-            response.json().then(function (data) {
-                console.log("DATA: ",  data);
-                console.log("WEATHER DATA: ", data.weather[0])
-                displayWeather(data, "london");
-            });
-        });
-};
+//     fetch(apiURL)
+//         .then(function (response) {
+//             response.json().then(function (data) {
+//                 console.log("DATA: ",  data);
+//                 console.log("WEATHER DATA: ", data.weather[0])
+//                 displayWeather(data, "london");
+//             });
+//         });
+// };
 
 //display the api containers and push the lat and lon to the the UV
-var displayWeather = function (weather, searchCity) {
-    //clear old content
-    weatherContainerEl.textContent = weather;
-    citySearchInputEl.textContent = searchCity;
+// var displayWeather = function (weather, searchCity) {
+//     //clear old content
+//     weatherContainerEl.textContent = weather;
+//     citySearchInputEl.textContent = searchCity;
 
 
-    //create an image element
-    var weatherIcon = document.createElement("img");
-    weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
+//     //create an image element
+//     var weatherIcon = document.createElement("img");
+//     weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
 
-    //create a span element for temperature data
-    var temperatureEl = document.createElement("span");
-    temperatureEl.textContent = "Temperature: " + weather.main.temp + " °F";
-    temperatureEl.classList = "list-group-item";
+//     //create a span element for temperature data
+//     var temperatureEl = document.createElement("span");
+//     temperatureEl.textContent = "Temperature: " + weather.main.temp + " °F";
+//     temperatureEl.classList = "list-group-item";
 
-    //create a span element for Humidity data
-    var humidityEl = document.createElement("span");
-    humidityEl.textContent = "Humidity: " + weather.main.humidity + " %";
-    humidityEl.classList = "list-group-item";
+//     //create a span element for Humidity data
+//     var humidityEl = document.createElement("span");
+//     humidityEl.textContent = "Humidity: " + weather.main.humidity + " %";
+//     humidityEl.classList = "list-group-item";
 
-    //create a span element for Wind data
-    var windSpeedEl = document.createElement("span");
-    windSpeedEl.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
-    windSpeedEl.classList = "list-group-item";
+//     //create a span element for Wind data
+//     var windSpeedEl = document.createElement("span");
+//     windSpeedEl.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
+//     windSpeedEl.classList = "list-group-item";
 
-    //append, display the content
-    citySearchInputEl.appendChild(weatherIcon);
-    weatherContainerEl.appendChild(temperatureEl);
-    weatherContainerEl.appendChild(humidityEl);
-    weatherContainerEl.appendChild(windSpeedEl);
+//     //append, display the content
+//     citySearchInputEl.appendChild(weatherIcon);
+//     weatherContainerEl.appendChild(temperatureEl);
+//     weatherContainerEl.appendChild(humidityEl);
+//     weatherContainerEl.appendChild(windSpeedEl);
 
-    var lat = weather.coord.lat;
-    var lon = weather.coord.lon;
-}
+//     var lat = weather.coord.lat;
+//     var lon = weather.coord.lon;
+// }
 
 // In HTML make a select tag and fill the options with State abbreviations 
 //ON click on state, your store that abbrevation in a variable 
 //When you run the park fetch, pass in that variable 
 
-function 
+const stateApiKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"
+const searchURL = "https://developer.nps.gov/api/v1/parks?stateCode?pa="
 var stateCode = document.querySelector('#select').value 
-fetch("https://developer.nps.gov/api/v1/parks?stateCode=" + stateCode + "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs")
+
+
+
+fetch(searchURL + stateCode + stateApiKey)
 .then(function (response) {
     response.json().then(function (data) {
         // This is whewre you manipulate the data for your code 
@@ -121,13 +127,23 @@ fetch("https://developer.nps.gov/api/v1/parks?stateCode=" + stateCode + "&api_ke
 
         }
 
-    })
+    }) 
 })
 
 
+// var show = document.getElementById("park-info");
+// var parks = document.getElementById("parks");
+
+// parks.addEventListener('click', function() {
+//   parkinfo.innerHTML = "You selected " + data.data[i].fullName;
+// });
+
+
+
+
 // on click that targets the select HTML tag  // make another button that function submit
-// store the value of the select tags to store the state the user clicked on 
-//once we retrieved user value and they choose a state code, then you run the fetch
+// store the value of the select tags to store the state the user clicked on var userState = document.something
+//once we retrieved user value and they choose a state code, then you run the fetch (calling the onlick function)
 
 
 //git pull get latest changes
@@ -138,4 +154,4 @@ fetch("https://developer.nps.gov/api/v1/parks?stateCode=" + stateCode + "&api_ke
 //Have someone review   it and verify it
 //Onced approved, merge it
 
-//you can go back to main and do a git pull and everything will be up to date
+//you can go back to main and do a git pull and everything will be up to data 
