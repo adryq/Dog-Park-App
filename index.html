@@ -31,13 +31,14 @@
     <div class="">
     <button class="bg-green-200 px-4 py-2 rounded ml-10 mt-4 w-32" id="state-btn">Select State</button>
     
-    <div class="bg-green-100 hidden flex flex-col rounded mt-1 ml-10 p-2 w-32 text-sm" id="dropdown-state">
+    <div class="bg-green-100 hidden flex flex-col rounded mt-1 ml-10 p-2 w-32 text-sm" id="dropdown-state" onchange="changeResult()">
       
-      <button onclick="CityWeather()">Test</button>
+      <!-- <button onclick="CityWeather()">Test</button> -->
       
       <select name="states" id="select"></select>
         
-      <select name="parks" id="park-info"></select>
+      <div name="parks" id="park-info"></div>
+    
     </div>
 
     <div id="current-weather"></div>
