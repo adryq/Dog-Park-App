@@ -101,22 +101,41 @@ var displayWeather = function (weather, searchCity) {
 // In HTML make a select tag and fill the options with State abbreviations 
 //ON click on state, your store that abbrevation in a variable 
 //When you run the park fetch, pass in that variable 
-var stateCode = document.querySelctor('#select').value 
+
+function 
+var stateCode = document.querySelector('#select').value 
 fetch("https://developer.nps.gov/api/v1/parks?stateCode=" + stateCode + "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs")
-.then(function (data) {
-    data.json().then(function (data) {
+.then(function (response) {
+    response.json().then(function (data) {
         // This is whewre you manipulate the data for your code 
-        console.log(data)
-        console.log(data.fullName)
-        // Create some kind of HTML element to display nthe information to the user
-        // Then change the texdt content to whatever data you want to display
+        console.log(data);
+        parkEl = document.querySelector('#park-name')
+        for (i = 0; i < 5; i++) {
+        // Create some kind of HTML element to display nthe information to the user document.createElement("h4")
+        // Then change the texdt content to whatever data you want to display document.textcontent(#)
         //Add it to the page using appendChild 
+            console.log(data.data[i].fullName);
+            var parkButton = document.createElement('button')
+            parkButton.textContent = data.data[i].fullName
+            parkEl.appendChild(parkButton)
+
+        }
+
     })
 })
 
 
-// on click that targets the select statement 
-// make another button that function submit
-
+// on click that targets the select HTML tag  // make another button that function submit
 // store the value of the select tags to store the state the user clicked on 
+//once we retrieved user value and they choose a state code, then you run the fetch
 
+
+//git pull get latest changes
+//git add
+//git commit 
+//git push origin <name of brnach>
+//Make a pull request on github (Hey, made changes review it for me)
+//Have someone review   it and verify it
+//Onced approved, merge it
+
+//you can go back to main and do a git pull and everything will be up to date
