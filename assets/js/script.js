@@ -101,7 +101,7 @@ var displayWeather = function (weather, searchCity) {
 
 // In HTML make a select tag and fill the options with State abbreviations 
 //ON click on state, your store that abbrevation in a variable 
-//When you run the park fetch, pass in that variable 
+ 
 
 function changeResult() {
     stateCode = document.querySelector('#select').value
