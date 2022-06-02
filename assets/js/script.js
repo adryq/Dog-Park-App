@@ -1,7 +1,13 @@
+//api key storage
+var apiKey = "&appid=755c65e42d689835b8fd27ff1e21603c"; //weather api key
+var parkAPIKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"; //park api key
+var parkAPIURL = "https://developer.nps.gov/api/v1/parks?stateCode="; // park api
+
 
 var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
 var stateCode;
 var fullName;
+var parkEl;
 
 var weatherContainerEl = document.querySelector("#current-weather");
 
@@ -89,42 +95,46 @@ function changeResult() {
   getParkInfo(stateCode);
 }
 
-// var stateCode = document.querySelector('#select').value
+
 function getParkInfo(stateCode) {
   fetch(
-    "https://developer.nps.gov/api/v1/parks?stateCode=" +
-      stateCode +
-      "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"
-  ).then(async function (response) {
+    parkAPIURL + stateCode + parkAPIKey
+  ).then(function (response) {
     response.json().then(function (data) {
-      // This is whewre you manipulate the data for your code
+      // This is where you manipulate the data for your code
       console.log(data);
       parkEl = document.querySelector("#park-temp");
       while (parkEl.firstChild) {
         parkEl.removeChild(parkEl.firstChild);
       }
-      for (i = 0; i < 5; i++) {
-        var parkName = data.data[i].fullName;
-        console.log(data.data[i].fullName, data.data[i].description);
-        var parkButton = document.createElement("button");
-        var description = document.createElement("div");
-        parkButton.textContent = data.data[i].fullName;
-        description.textContent = "Description: " + data.data[i].description;
-
-        //displayWeather(parkName);
-        parkEl.appendChild(parkButton);
-        parkEl.appendChild(description);
+      for (i = 0; i < 2; i++) {
         
-
-        //retrieve lat & lon for weather
+        console.log(data.data[i].fullName, data.data[i].description)
+        var parkName = document.createElement("div");
+        var description = document.createElement("div");
+        var homePage = document.createElement('a');
+        
+        parkName.textContent = "Park Name: " + data.data[i].fullName;
+        description.textContent = "Description: " + data.data[i].description;
+        homePage.textContent = "Homepage: " + data.data[i].url;
+        homePage.href = data.data[i].url;
+      
+        parkEl.appendChild(parkName);
+        parkEl.appendChild(description);
+        parkEl.appendChild(homePage);
+        
+        //console.log(data.data[i].description);
+           //retrieve lat & lon for weather
         var lat = data.data[i].latitude;
         var lon = data.data[i].longitude;
         //push to weather function
        weather(lat, lon, description);
       }
+
     });
   });
 }
+   
 
 //retrieving the api with the city that we entered
 var weather =  function (lat, lon, description) {

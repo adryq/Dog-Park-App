@@ -8,15 +8,14 @@ After creating a repository called National-Park-App in GitHub, VS code was used
 
 ## Usage
 This app can be used by nature enthusiasts to visit parks they liked in the past or parks that haven't been visited yet. The app allows the user to view park information and weather ahead of a trip.
+
 ## Screenshots
 
 ## Link to National Park App
+
 Deployed:
+
 Github: https://github.com/adryq/National-Park-App
 
 ## Credits
-GitHubGitHub
-GitHub - adryq/National-Park-App
-Contribute to adryq/National-Park-App development by creating an account on GitHub. (125 kB)
-
 
