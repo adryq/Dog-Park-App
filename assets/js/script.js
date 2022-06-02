@@ -9,6 +9,7 @@ var parkEl;
 
 var weatherContainerEl = document.querySelector("#current-weather");
 
+//event listener for state button and dropdown
 document.addEventListener("DOMContentLoaded", () => {
   const stateBtn = document.querySelector("#state-btn");
   const dropdownState = document.querySelector("#dropdown-state");
@@ -110,9 +111,9 @@ function getParkInfo(stateCode) {
         var description = document.createElement("div");
         var homePage = document.createElement('a');
         
-        parkName.textContent = "Park Name: " + data.data[i].fullName;
-        description.textContent = "Description: " + data.data[i].description;
-        homePage.textContent = "Homepage: " + data.data[i].url;
+        parkName.textContent = "" + data.data[i].fullName;
+        description.textContent = "" + data.data[i].description;
+        homePage.textContent = "" + data.data[i].url;
         homePage.href = data.data[i].url;
       
         parkEl.appendChild(parkName);
