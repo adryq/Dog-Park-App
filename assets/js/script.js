@@ -1,17 +1,10 @@
 //api key storage
-var apiKey = "&appid=755c65e42d689835b8fd27ff1e21603c"; //weather api key
+var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
 var parkKey = ""; //park info key
 var stateCode;
 var fullName;
 
-
-
-var cities = [];
-//using london as example
-var cityInputEl = document.querySelector("#city");
 var weatherContainerEl = document.querySelector("#current-weather");
-var citySearchInputEl = document.querySelector("#searched-city");
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const stateBtn = document.querySelector("#state-btn");
@@ -88,31 +81,69 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// In HTML make a select tag and fill the options with State abbreviations
+//ON click on state, your store that abbrevation in a variable
+
+function changeResult() {
+  stateCode = document.querySelector("#select").value;
+  console.log(stateCode);
+  getParkInfo(stateCode);
+}
+
+// var stateCode = document.querySelector('#select').value
+function getParkInfo(stateCode) {
+  fetch(
+    "https://developer.nps.gov/api/v1/parks?stateCode=" +
+      stateCode +
+      "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"
+  ).then(function (response) {
+    response.json().then(function (data) {
+      // This is whewre you manipulate the data for your code
+      console.log(data);
+      parkEl = document.querySelector("#park-name");
+      while (parkEl.firstChild) {
+        parkEl.removeChild(parkEl.firstChild);
+      }
+      for (i = 0; i < 5; i++) {
+        var parkName = data.data[i].fullName;
+        console.log(data.data[i].fullName, data.data[i].description);
+        var parkButton = document.createElement("button");
+        var description = document.createElement("div");
+        parkButton.textContent = data.data[i].fullName;
+        description.textContent = "Description: " + data.data[i].description;
+
+        //displayWeather(parkName);
+        parkEl.appendChild(parkButton);
+        parkEl.appendChild(description);
+
+        //retrieve lat & lon for weather
+        var lat = data.data[i].latitude;
+        var lon = data.data[i].longitude;
+        //push to weather function
+        weather(lat, lon);
+      }
+    });
+  });
+}
+
 //retrieving the api with the city that we entered
-var weather = function (geo) {
-  var apiURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}';
+var weather = function (lat, lon) {
+  var apiURL =
+    "https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=" +
+    apiKey;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
       console.log("DATA: ", data);
-      console.log("WEATHER DATA: ", data.weather[0]);
-      displayWeather(data, "london");
+      displayWeather(data);
     });
   });
 };
 
 //display the api containers and push the lat and lon to the the UV
-var displayWeather = function (weather,   ) {
+var displayWeather = function (weather) {
   //clear old content
   weatherContainerEl.textContent = weather;
-  citySearchInputEl.textContent = searchCity;
-
-  //create an image element
-  var weatherIcon = document.createElement("img");
-  weatherIcon.setAttribute(
-    "src",
-    `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
-  );
 
   //create a span element for temperature data
   var temperatureEl = document.createElement("span");
@@ -130,55 +161,10 @@ var displayWeather = function (weather,   ) {
   windSpeedEl.classList = "list-group-item";
 
   //append, display the content
-  citySearchInputEl.appendChild(weatherIcon);
   weatherContainerEl.appendChild(temperatureEl);
   weatherContainerEl.appendChild(humidityEl);
   weatherContainerEl.appendChild(windSpeedEl);
-
-  var lat = weather.coord.lat;
-  var lon = weather.coord.lon;
 };
-
-// In HTML make a select tag and fill the options with State abbreviations
-//ON click on state, your store that abbrevation in a variable
-
-function changeResult() {
-  stateCode = document.querySelector("#select").value;
-  console.log(stateCode);
-  getParkInfo(stateCode);
-
-}
-
-// var stateCode = document.querySelector('#select').value
-function getParkInfo(stateCode) {
-  fetch(
-    "https://developer.nps.gov/api/v1/parks?stateCode=" +
-      stateCode +
-      "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"
-  ).then(function (response) {
-    response.json().then(function (data) {
-      // This is whewre you manipulate the data for your code
-      console.log(data);
-      parkEl = document.querySelector("#park-name");
-      while (parkEl.firstChild) {
-        parkEl.removeChild(parkEl.firstChild);
-      }
-      for (i = 0; i < 5; i++) { 
-        var parkName = data.data[i].fullName
-        console.log(data.data[i].fullName, data.data[i].description);
-        var parkButton = document.createElement("button");
-        var description = document.createElement("div");
-        parkButton.textContent = data.data[i].fullName;
-        description.textContent = "Description: " + data.data[i].description;
-        //displayWeather(parkName);
-        parkEl.appendChild(parkButton);
-        parkEl.appendChild(description);
-        //console.log(data.data[i].description);
-      }
-    });
-  });
-}
-
 // on click that targets the select HTML tag  // make another button that function submit
 // store the value of the select tags to store the state the user clicked on
 //once we retrieved user value and they choose a state code, then you run the fetch
