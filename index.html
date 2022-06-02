@@ -21,14 +21,14 @@
   <!-- Header -->
   <header class="text-left bg-green-200 py-8 pl-10">
     <h1 class="font-bold text-5xl">National Park App</h1>
-    <p class="font-normal text-1xl text-gray-500 italic-80">Find your favorite hiking trail!</p>
+    <p class="font-normal text-1xl text-gray-500 italic-80">Find your perfect green scene!</p>
   </header>
  
   <!-- Main Page -->
   <section class="bg-[url('./assets/Images/forest.jpeg')] bg-cover bg-no-repeat" id="background-image">
   
     <!-- State Selection Button -->
-    <div class="">
+  
     <button class="bg-green-200 px-4 py-2 rounded ml-10 mt-4 w-32" id="state-btn">Select State</button>
     
     <div class="bg-green-100 hidden flex flex-col rounded mt-1 ml-10 p-2 w-32 text-sm" id="dropdown-state" onchange="changeResult()">
@@ -36,16 +36,18 @@
       <select name="states" id="select"></select>
         
       <div name="parks" id="park-info"></div>
+
     
-    </div>
-  </div>
-</section>
-
-<!--showing the list of parks-->
-
-<div id="current-weather"></div>
-<div id="park-name"></div>
+      <div id="park-name"></div>
+  <div id="current-weather"></div>
+  <!-- <div id="park-temp" class=" bg-green-200 flex flex-col  rounded ml-50 mt-4 "></div> -->
   
+</div>
+  
+</section>
+<div id="park-temp" class=" bg-green-200 flex flex-col  rounded ml-50 mt-4 "></div>
+
+
 
 <script src="./assets/js/script.js"></script>
 </body>

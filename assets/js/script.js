@@ -1,6 +1,5 @@
-//api key storage
+
 var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
-var parkKey = ""; //park info key
 var stateCode;
 var fullName;
 
@@ -96,11 +95,11 @@ function getParkInfo(stateCode) {
     "https://developer.nps.gov/api/v1/parks?stateCode=" +
       stateCode +
       "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"
-  ).then(function (response) {
+  ).then(async function (response) {
     response.json().then(function (data) {
       // This is whewre you manipulate the data for your code
       console.log(data);
-      parkEl = document.querySelector("#park-name");
+      parkEl = document.querySelector("#park-temp");
       while (parkEl.firstChild) {
         parkEl.removeChild(parkEl.firstChild);
       }
@@ -115,56 +114,60 @@ function getParkInfo(stateCode) {
         //displayWeather(parkName);
         parkEl.appendChild(parkButton);
         parkEl.appendChild(description);
+        
 
         //retrieve lat & lon for weather
         var lat = data.data[i].latitude;
         var lon = data.data[i].longitude;
         //push to weather function
-        weather(lat, lon);
+       weather(lat, lon, description);
       }
     });
   });
 }
 
 //retrieving the api with the city that we entered
-var weather = function (lat, lon) {
+var weather =  function (lat, lon, description) {
   var apiURL =
-    "https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=" +
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=` +
     apiKey;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
       console.log("DATA: ", data);
-      displayWeather(data);
+      displayWeather(data, description);
     });
   });
 };
 
 //display the api containers and push the lat and lon to the the UV
-var displayWeather = function (weather) {
-  //clear old content
-  weatherContainerEl.textContent = weather;
+var displayWeather = function (weather, description) {
 
   //create a span element for temperature data
-  var temperatureEl = document.createElement("span");
-  temperatureEl.textContent = "Temperature: " + weather.main.temp + " °F";
+  var temperatureEl = document.createElement("div");
+  temperatureEl.textContent = "Temperature: " + convertKtoF(weather.current.temp) + " °F";
   temperatureEl.classList = "list-group-item";
+  description.appendChild(temperatureEl);
 
   //create a span element for Humidity data
-  var humidityEl = document.createElement("span");
-  humidityEl.textContent = "Humidity: " + weather.main.humidity + " %";
+  var humidityEl = document.createElement("div");
+  humidityEl.textContent = "Humidity: " + weather.current.humidity + " %";
   humidityEl.classList = "list-group-item";
+  description.appendChild(humidityEl);
 
   //create a span element for Wind data
-  var windSpeedEl = document.createElement("span");
-  windSpeedEl.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
+  var windSpeedEl = document.createElement("div");
+  windSpeedEl.textContent = "Wind Speed: " + weather.current.wind_speed + " MPH";
   windSpeedEl.classList = "list-group-item";
+  description.appendChild(windSpeedEl);
+   
+  description.appendChild(document.createElement("div"));
 
-  //append, display the content
-  weatherContainerEl.appendChild(temperatureEl);
-  weatherContainerEl.appendChild(humidityEl);
-  weatherContainerEl.appendChild(windSpeedEl);
 };
+
+var convertKtoF = function(kelvin){
+  return Math.round((kelvin - 273.15) * 9/5 + 32);
+}
 // on click that targets the select HTML tag  // make another button that function submit
 // store the value of the select tags to store the state the user clicked on
 //once we retrieved user value and they choose a state code, then you run the fetch
