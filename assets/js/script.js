@@ -1,6 +1,8 @@
 //api key storage
 var apiKey = "&appid=755c65e42d689835b8fd27ff1e21603c"; //weather api key
-var parkKey = ""; //park info key
+var parkAPIKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"; //park api key
+var parkAPIURL = "https://developer.nps.gov/api/v1/parks?stateCode="; // park api
+
 
 var cities = [];
 //using london as example
@@ -8,6 +10,7 @@ var cityInputEl = document.querySelector("#city");
 var weatherContainerEl = document.querySelector("#current-weather");
 var citySearchInputEl = document.querySelector("#searched-city");
 var stateCode;
+var fullName;
 
 document.addEventListener("DOMContentLoaded", () => {
   const stateBtn = document.querySelector("#state-btn");
@@ -144,47 +147,36 @@ function changeResult() {
   getParkInfo(stateCode);
 }
 
-// var stateCode = document.querySelector('#select').value
+
 function getParkInfo(stateCode) {
   fetch(
-    "https://developer.nps.gov/api/v1/parks?stateCode=" +
-      stateCode +
-      "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"
+    parkAPIURL + stateCode + parkAPIKey
   ).then(function (response) {
     response.json().then(function (data) {
-      // This is whewre you manipulate the data for your code
+      // This is where you manipulate the data for your code
       console.log(data);
       parkEl = document.querySelector("#park-name");
       while (parkEl.firstChild) {
         parkEl.removeChild(parkEl.firstChild);
       }
-      for (i = 0; i < 5; i++) {
-        // Create some kind of HTML element to display nthe information to the user document.createElement("h4")
-        // Then change the texdt content to whatever data you want to display document.textcontent(#)
-        //Add it to the page using appendChild
-        console.log(data.data[i].fullName, data.data[i].description);
-        var parkButton = document.createElement("button");
+      for (i = 0; i < 2; i++) {
+        
+        console.log(data.data[i].fullName, data.data[i].description)
+        var parkName = document.createElement("div");
         var description = document.createElement("div");
-        parkButton.textContent = data.data[i].fullName;
-        description.textcontent = "Description: " + data.data[i].description;
-        parkEl.appendChild(parkButton);
+        var homePage = document.createElement('a');
+        
+        parkName.textContent = "Park Name: " + data.data[i].fullName;
+        description.textContent = "Description: " + data.data[i].description;
+        homePage.textContent = "Homepage: " + data.data[i].url;
+        homePage.href = data.data[i].url;
+      
+        parkEl.appendChild(parkName);
         parkEl.appendChild(description);
+        parkEl.appendChild(homePage);
+        
         //console.log(data.data[i].description);
       }
     });
   });
 }
-
-// on click that targets the select HTML tag  // make another button that function submit
-// store the value of the select tags to store the state the user clicked on
-//once we retrieved user value and they choose a state code, then you run the fetch
-
-//git pull get latest changes
-//git add
-//git commit
-//git push origin <name of brnach>
-//Make a pull request on github (Hey, made changes review it for me)
-//Have someone review   it and verify it
-//Onced approved, merge it
-
-//you can go back to main and do a git pull and everything will be up to date
