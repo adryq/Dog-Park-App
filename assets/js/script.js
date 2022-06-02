@@ -4,13 +4,12 @@ var parkAPIKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"; //park api
 var parkAPIURL = "https://developer.nps.gov/api/v1/parks?stateCode="; // park api
 
 
-var cities = [];
-//using london as example
-var cityInputEl = document.querySelector("#city");
-var weatherContainerEl = document.querySelector("#current-weather");
-var citySearchInputEl = document.querySelector("#searched-city");
+var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
 var stateCode;
 var fullName;
+var parkEl;
+
+var weatherContainerEl = document.querySelector("#current-weather");
 
 document.addEventListener("DOMContentLoaded", () => {
   const stateBtn = document.querySelector("#state-btn");
@@ -87,57 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//retrieving the api with the city that we entered
-var CityWeather = function (city) {
-  var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=london&units=imperial${apiKey}`;
-
-  fetch(apiURL).then(function (response) {
-    response.json().then(function (data) {
-      console.log("DATA: ", data);
-      console.log("WEATHER DATA: ", data.weather[0]);
-      displayWeather(data, "london");
-    });
-  });
-};
-
-//display the api containers and push the lat and lon to the the UV
-var displayWeather = function (weather, searchCity) {
-  //clear old content
-  weatherContainerEl.textContent = weather;
-  citySearchInputEl.textContent = searchCity;
-
-  //create an image element
-  var weatherIcon = document.createElement("img");
-  weatherIcon.setAttribute(
-    "src",
-    `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
-  );
-
-  //create a span element for temperature data
-  var temperatureEl = document.createElement("span");
-  temperatureEl.textContent = "Temperature: " + weather.main.temp + " °F";
-  temperatureEl.classList = "list-group-item";
-
-  //create a span element for Humidity data
-  var humidityEl = document.createElement("span");
-  humidityEl.textContent = "Humidity: " + weather.main.humidity + " %";
-  humidityEl.classList = "list-group-item";
-
-  //create a span element for Wind data
-  var windSpeedEl = document.createElement("span");
-  windSpeedEl.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
-  windSpeedEl.classList = "list-group-item";
-
-  //append, display the content
-  citySearchInputEl.appendChild(weatherIcon);
-  weatherContainerEl.appendChild(temperatureEl);
-  weatherContainerEl.appendChild(humidityEl);
-  weatherContainerEl.appendChild(windSpeedEl);
-
-  var lat = weather.coord.lat;
-  var lon = weather.coord.lon;
-};
-
 // In HTML make a select tag and fill the options with State abbreviations
 //ON click on state, your store that abbrevation in a variable
 
@@ -155,7 +103,7 @@ function getParkInfo(stateCode) {
     response.json().then(function (data) {
       // This is where you manipulate the data for your code
       console.log(data);
-      parkEl = document.querySelector("#park-name");
+      parkEl = document.querySelector("#park-temp");
       while (parkEl.firstChild) {
         parkEl.removeChild(parkEl.firstChild);
       }
@@ -176,7 +124,70 @@ function getParkInfo(stateCode) {
         parkEl.appendChild(homePage);
         
         //console.log(data.data[i].description);
+           //retrieve lat & lon for weather
+        var lat = data.data[i].latitude;
+        var lon = data.data[i].longitude;
+        //push to weather function
+       weather(lat, lon, description);
       }
+
     });
   });
 }
+   
+
+//retrieving the api with the city that we entered
+var weather =  function (lat, lon, description) {
+  var apiURL =
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=` +
+    apiKey;
+
+  fetch(apiURL).then(function (response) {
+    response.json().then(function (data) {
+      console.log("DATA: ", data);
+      displayWeather(data, description);
+    });
+  });
+};
+
+//display the api containers and push the lat and lon to the the UV
+var displayWeather = function (weather, description) {
+
+  //create a span element for temperature data
+  var temperatureEl = document.createElement("div");
+  temperatureEl.textContent = "Temperature: " + convertKtoF(weather.current.temp) + " °F";
+  temperatureEl.classList = "list-group-item";
+  description.appendChild(temperatureEl);
+
+  //create a span element for Humidity data
+  var humidityEl = document.createElement("div");
+  humidityEl.textContent = "Humidity: " + weather.current.humidity + " %";
+  humidityEl.classList = "list-group-item";
+  description.appendChild(humidityEl);
+
+  //create a span element for Wind data
+  var windSpeedEl = document.createElement("div");
+  windSpeedEl.textContent = "Wind Speed: " + weather.current.wind_speed + " MPH";
+  windSpeedEl.classList = "list-group-item";
+  description.appendChild(windSpeedEl);
+   
+  description.appendChild(document.createElement("div"));
+
+};
+
+var convertKtoF = function(kelvin){
+  return Math.round((kelvin - 273.15) * 9/5 + 32);
+}
+// on click that targets the select HTML tag  // make another button that function submit
+// store the value of the select tags to store the state the user clicked on
+//once we retrieved user value and they choose a state code, then you run the fetch
+
+//git pull get latest changes
+//git add
+//git commit
+//git push origin <name of brnach>
+//Make a pull request on github (Hey, made changes review it for me)
+//Have someone review   it and verify it
+//Onced approved, merge it
+
+//you can go back to main and do a git pull and everything will be up to date
