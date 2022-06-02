@@ -1,7 +1,7 @@
 //api key storage
 var parkAPIKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"; //park api key
 var parkAPIURL = "https://developer.nps.gov/api/v1/parks?stateCode="; // park url
-var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
+var apiKey = "8dd4a9308f0c85484a8e187be679284d"; //weather api key
 
 var stateCode;
 var fullName;
