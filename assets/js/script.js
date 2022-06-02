@@ -1,10 +1,8 @@
 //api key storage
-var apiKey = "&appid=755c65e42d689835b8fd27ff1e21603c"; //weather api key
 var parkAPIKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"; //park api key
-var parkAPIURL = "https://developer.nps.gov/api/v1/parks?stateCode="; // park api
-
-
+var parkAPIURL = "https://developer.nps.gov/api/v1/parks?stateCode="; // park url
 var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
+
 var stateCode;
 var fullName;
 var parkEl;
@@ -86,8 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// In HTML make a select tag and fill the options with State abbreviations
-//ON click on state, your store that abbrevation in a variable
+
 
 function changeResult() {
   stateCode = document.querySelector("#select").value;
@@ -101,13 +98,12 @@ function getParkInfo(stateCode) {
     parkAPIURL + stateCode + parkAPIKey
   ).then(function (response) {
     response.json().then(function (data) {
-      // This is where you manipulate the data for your code
       console.log(data);
       parkEl = document.querySelector("#park-temp");
       while (parkEl.firstChild) {
         parkEl.removeChild(parkEl.firstChild);
       }
-      for (i = 0; i < 2; i++) {
+      for (i = 0; i < 10; i++) {
         
         console.log(data.data[i].fullName, data.data[i].description)
         var parkName = document.createElement("div");
@@ -153,19 +149,19 @@ var weather =  function (lat, lon, description) {
 //display the api containers and push the lat and lon to the the UV
 var displayWeather = function (weather, description) {
 
-  //create a span element for temperature data
+  //create a div element for temperature data
   var temperatureEl = document.createElement("div");
   temperatureEl.textContent = "Temperature: " + convertKtoF(weather.current.temp) + " °F";
   temperatureEl.classList = "list-group-item";
   description.appendChild(temperatureEl);
 
-  //create a span element for Humidity data
+  //create a div element for Humidity data
   var humidityEl = document.createElement("div");
   humidityEl.textContent = "Humidity: " + weather.current.humidity + " %";
   humidityEl.classList = "list-group-item";
   description.appendChild(humidityEl);
 
-  //create a span element for Wind data
+  //create a div element for Wind data
   var windSpeedEl = document.createElement("div");
   windSpeedEl.textContent = "Wind Speed: " + weather.current.wind_speed + " MPH";
   windSpeedEl.classList = "list-group-item";
@@ -175,19 +171,8 @@ var displayWeather = function (weather, description) {
 
 };
 
+// convert Kelvin to Fahrenheit
 var convertKtoF = function(kelvin){
   return Math.round((kelvin - 273.15) * 9/5 + 32);
 }
-// on click that targets the select HTML tag  // make another button that function submit
-// store the value of the select tags to store the state the user clicked on
-//once we retrieved user value and they choose a state code, then you run the fetch
 
-//git pull get latest changes
-//git add
-//git commit
-//git push origin <name of brnach>
-//Make a pull request on github (Hey, made changes review it for me)
-//Have someone review   it and verify it
-//Onced approved, merge it
-
-//you can go back to main and do a git pull and everything will be up to date
