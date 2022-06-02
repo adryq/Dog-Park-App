@@ -13,7 +13,7 @@ This app can be used by nature enthusiasts to visit parks they liked in the past
 
 ## Link to National Park App
 
-Deployed:
+Deployed: https://adryq.github.io/National-Park-App/
 
 Github: https://github.com/adryq/National-Park-App
 
