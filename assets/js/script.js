@@ -1,13 +1,17 @@
 //api key storage
 var apiKey = "&appid=755c65e42d689835b8fd27ff1e21603c"; //weather api key
 var parkKey = ""; //park info key
+var stateCode;
+var fullName;
+
+
 
 var cities = [];
 //using london as example
 var cityInputEl = document.querySelector("#city");
 var weatherContainerEl = document.querySelector("#current-weather");
 var citySearchInputEl = document.querySelector("#searched-city");
-var stateCode;
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const stateBtn = document.querySelector("#state-btn");
@@ -85,8 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //retrieving the api with the city that we entered
-var CityWeather = function (city) {
-  var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=london&units=imperial${apiKey}`;
+var weather = function (geo) {
+  var apiURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}';
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
@@ -98,7 +102,7 @@ var CityWeather = function (city) {
 };
 
 //display the api containers and push the lat and lon to the the UV
-var displayWeather = function (weather, searchCity) {
+var displayWeather = function (weather,   ) {
   //clear old content
   weatherContainerEl.textContent = weather;
   citySearchInputEl.textContent = searchCity;
@@ -142,6 +146,7 @@ function changeResult() {
   stateCode = document.querySelector("#select").value;
   console.log(stateCode);
   getParkInfo(stateCode);
+
 }
 
 // var stateCode = document.querySelector('#select').value
@@ -158,15 +163,14 @@ function getParkInfo(stateCode) {
       while (parkEl.firstChild) {
         parkEl.removeChild(parkEl.firstChild);
       }
-      for (i = 0; i < 5; i++) {
-        // Create some kind of HTML element to display nthe information to the user document.createElement("h4")
-        // Then change the texdt content to whatever data you want to display document.textcontent(#)
-        //Add it to the page using appendChild
+      for (i = 0; i < 5; i++) { 
+        var parkName = data.data[i].fullName
         console.log(data.data[i].fullName, data.data[i].description);
         var parkButton = document.createElement("button");
         var description = document.createElement("div");
         parkButton.textContent = data.data[i].fullName;
-        description.textcontent = "Description: " + data.data[i].description;
+        description.textContent = "Description: " + data.data[i].description;
+        //displayWeather(parkName);
         parkEl.appendChild(parkButton);
         parkEl.appendChild(description);
         //console.log(data.data[i].description);
