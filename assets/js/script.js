@@ -9,6 +9,7 @@ var parkEl;
 
 var weatherContainerEl = document.querySelector("#current-weather");
 
+//event listener for state button and drop down
 document.addEventListener("DOMContentLoaded", () => {
   const stateBtn = document.querySelector("#state-btn");
   const dropdownState = document.querySelector("#dropdown-state");
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (dropdownState.classList.contains("hidden")) {
       dropdownState.classList.remove("hidden");
       dropdownState.classList.add("flex");
-
+//list of states
       var states = [
         "AL",
         "AK",
@@ -79,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       dropdownState.classList.remove("flex");
-      dropdownState.classList.add("hidden");
+      dropdownState.classList.add("hidden"); //hide states 
     }
   });
 });
