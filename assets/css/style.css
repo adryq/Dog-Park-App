@@ -2,11 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-a:link {
-    color: blue;
-    
+body {
+   background-image: url('../Images/forest.jpeg'); 
 }
-
 /* .list-group-item {
     text-decoration-style: 
 } */
