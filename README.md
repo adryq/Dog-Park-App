@@ -19,3 +19,6 @@ Github: https://github.com/adryq/National-Park-App
 
 ## Credits
 
+Adry - https://github.com/adryq
+Travis - https://github.com/travisramcharran
+Benjamin - https://github.com/BenYeung4

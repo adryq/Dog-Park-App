@@ -130,6 +130,7 @@ function getParkInfo(stateCode) {
         description.textContent = "" + data.data[i].description;
         homePage.textContent = "" + data.data[i].url;
         homePage.href = data.data[i].url;
+        homePage.setAttribute('style', 'color: blue')
 
         parkEl.appendChild(parkName);
         parkEl.appendChild(description);
@@ -190,7 +191,7 @@ var convertKtoF = function (kelvin) {
   return Math.round(((kelvin - 273.15) * 9) / 5 + 32);
 };
 
-//pulling local storage of past searched states
+//pulling local storage of past searched states and displaying on bar
 var pastSearch = function (pastSearch) {
   pastEl = document.createElement("button");
   pastEl.textContent = pastSearch;
@@ -206,7 +207,18 @@ var pastSearchHandler = function (event) {
   var stateCode = event.target.getAttribute("data-state");
   if (stateCode) {
     getParkInfo(stateCode);
+    //Retrieve local storage using for loop localstorage.getItem(key)
+/** If the state the user clicks on is the same as one of the states in local storage don't run the api again  */
+  }else if(condition){
+    return 
   }
 };
 
 pastSearchButtonEl.addEventListener("click", pastSearchHandler);
+showLocal()
+function showLocal(){
+  var localPast = localStorage.getItem('State selected:')
+  console.log(localPast)
+}
+
+//Make h1 tag showing the states you choose
