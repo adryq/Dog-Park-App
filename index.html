@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./assets/css/style.css">
-  
-  
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>National Park App</title>
-</head>
-<body>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="text-left bg-green-200 py-8 pl-10">
+      <h1 class="font-bold text-5xl">National Park App</h1>
+      <p class="font-normal text-1xl text-gray-500 italic-80">
+        Find your perfect green scene!
+      </p>
+    </header>
 
-  <!-- Header -->
-  <header class="text-left bg-green-200 py-8 pl-10">
-    <h1 class="font-bold text-5xl">National Park App</h1>
-    <p class="font-normal text-1xl text-gray-500 italic-80">Find your perfect green scene!</p>
-  </header>
- 
-  <!-- Main Page -->
-  <section class="bg-[url('./assets/Images/forest.jpeg')] bg-cover bg-no-repeat" id="background-image">
-  
-  
-    <button class="bg-green-200 px-4 py-2 rounded ml-10 mt-4 w-32" id="state-btn">Select State</button>
-    
-    <div class="bg-green-100 hidden flex flex-col rounded mt-1 ml-10 p-2 w-32 text-sm" id="dropdown-state" onchange="changeResult()">
-      
-      <select name="states" id="select"></select>
-        
-      <div name="parks" id="park-info"></div>
+    <!-- Main Page -->
+    <section
+      class="bg-[url('./assets/Images/forest.jpeg')] bg-cover bg-no-repeat"
+      id="background-image"
+    >
+      <!--Search Bar-->
+      <button
+        class="bg-green-200 px-4 py-2 rounded ml-10 mt-4 w-32"
+        id="state-btn"
+      >
+        Select State
+      </button>
 
-    
-      <div id="park-name"></div>
-  <div id="current-weather"></div>
- 
-  
-</div>
-  
-</section>
-<div id="park-temp" class=" bg-green-200 flex flex-col space-y-4 rounded ml-50 mt-4 text-center px-10"></div>
+      <div class="flex">
+        <div
+          class="bg-green-100 hidden display:flex flex-col rounded mt-1 ml-10 p-2 w-32 text-sm"
+          id="dropdown-state"
+          onchange="changeResult()"
+        >
+          <select name="states" id="select" class="text-center"></select>
+          <div name="parks" id="park-info"></div>
 
+          <!--displays park information -->
+          <div id="park-name"></div>
+          <div id="current-weather"></div>
+        </div>
 
-
-<script src="./assets/js/script.js"></script>
-</body>
+        <!--display clickable past searches-->
+        <h2 id="searched-states"></h2>
+      </div>
+    </section>
+    <div
+      id="park-temp"
+      class="bg-green-200 flex flex-col space-y-4 rounded ml-50 mt-4 text-center px-10"
+    ></div>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>

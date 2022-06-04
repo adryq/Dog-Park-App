@@ -1,10 +1,13 @@
 //api key storage
 var parkAPIKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"; //park api key
 var parkAPIURL = "https://developer.nps.gov/api/v1/parks?stateCode="; // park url
-var apiKey = "8dd4a9308f0c85484a8e187be679284d"; //weather api key
+var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
+
+//saving variables
+var pastSearchButtonEl = document.querySelector("#searched-states");
+var Abreviation = [];
 
 var stateCode;
-var fullName;
 var parkEl;
 
 var weatherContainerEl = document.querySelector("#current-weather");
@@ -85,19 +88,32 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
-
 function changeResult() {
   stateCode = document.querySelector("#select").value;
-  console.log(stateCode);
   getParkInfo(stateCode);
+
+  //checking local storage if there same state has been selected
+  // var copy = localStorage.getItem(JSON.stringify(Abreviation));
+  // console.log(copy);
+  // if (stateCode === copy) {
+  //   window.alert(
+  //     "You have already selected this state.  Please review the bookmarks or select another state.  Thank you."
+  //   );
+  //   return changeResult();
+  // }
+
+  Abreviation.unshift({ stateCode });
+  saveSearch();
+  pastSearch(stateCode);
 }
 
+//save to local storage
+var saveSearch = function () {
+  localStorage.setItem("State selected:", JSON.stringify(Abreviation));
+};
 
 function getParkInfo(stateCode) {
-  fetch(
-    parkAPIURL + stateCode + parkAPIKey
-  ).then(function (response) {
+  fetch(parkAPIURL + stateCode + parkAPIKey).then(function (response) {
     response.json().then(function (data) {
       console.log(data);
       parkEl = document.querySelector("#park-temp");
@@ -105,36 +121,33 @@ function getParkInfo(stateCode) {
         parkEl.removeChild(parkEl.firstChild);
       }
       for (i = 0; i < 10; i++) {
-        
-        console.log(data.data[i].fullName, data.data[i].description)
+        console.log(data.data[i].fullName, data.data[i].description);
         var parkName = document.createElement("div");
         var description = document.createElement("div");
-        var homePage = document.createElement('a');
-        
+        var homePage = document.createElement("a");
+
         parkName.textContent = "" + data.data[i].fullName;
         description.textContent = "" + data.data[i].description;
         homePage.textContent = "" + data.data[i].url;
         homePage.href = data.data[i].url;
-      
+
         parkEl.appendChild(parkName);
         parkEl.appendChild(description);
         parkEl.appendChild(homePage);
-        
+
         //console.log(data.data[i].description);
-           //retrieve lat & lon for weather
+        //retrieve lat & lon for weather
         var lat = data.data[i].latitude;
         var lon = data.data[i].longitude;
         //push to weather function
-       weather(lat, lon, description);
+        weather(lat, lon, description);
       }
-
     });
   });
 }
-   
 
-//retrieving the api with the city that we entered
-var weather =  function (lat, lon, description) {
+//retrieving the api with the park that we entered
+var weather = function (lat, lon, description) {
   var apiURL =
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=` +
     apiKey;
@@ -147,12 +160,12 @@ var weather =  function (lat, lon, description) {
   });
 };
 
-//display the api containers and push the lat and lon to the the UV
+//display the api containers and push the lat, lon, and park
 var displayWeather = function (weather, description) {
-
   //create a div element for temperature data
   var temperatureEl = document.createElement("div");
-  temperatureEl.textContent = "Temperature: " + convertKtoF(weather.current.temp) + " °F";
+  temperatureEl.textContent =
+    "Temperature: " + convertKtoF(weather.current.temp) + " °F";
   temperatureEl.classList = "list-group-item";
   description.appendChild(temperatureEl);
 
@@ -164,16 +177,36 @@ var displayWeather = function (weather, description) {
 
   //create a div element for Wind data
   var windSpeedEl = document.createElement("div");
-  windSpeedEl.textContent = "Wind Speed: " + weather.current.wind_speed + " MPH";
+  windSpeedEl.textContent =
+    "Wind Speed: " + weather.current.wind_speed + " MPH";
   windSpeedEl.classList = "list-group-item";
   description.appendChild(windSpeedEl);
-   
-  description.appendChild(document.createElement("div"));
 
+  description.appendChild(document.createElement("div"));
 };
 
 // convert Kelvin to Fahrenheit
-var convertKtoF = function(kelvin){
-  return Math.round((kelvin - 273.15) * 9/5 + 32);
-}
+var convertKtoF = function (kelvin) {
+  return Math.round(((kelvin - 273.15) * 9) / 5 + 32);
+};
 
+//pulling local storage of past searched states
+var pastSearch = function (pastSearch) {
+  pastEl = document.createElement("button");
+  pastEl.textContent = pastSearch;
+  pastEl.classList =
+    "bg-green-100 flex:row flex-col rounded mt-1 ml-10 p-2 w-32 text-sm";
+  pastEl.setAttribute("data-state", pastSearch);
+  pastEl.setAttribute("type", "submit");
+
+  pastSearchButtonEl.prepend(pastEl);
+};
+
+var pastSearchHandler = function (event) {
+  var stateCode = event.target.getAttribute("data-state");
+  if (stateCode) {
+    getParkInfo(stateCode);
+  }
+};
+
+pastSearchButtonEl.addEventListener("click", pastSearchHandler);
