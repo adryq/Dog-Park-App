@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-   background-image: url('../Images/forest.jpeg'); 
+
+
+body { 
+    background: url('../Images/forest.jpeg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-/* .list-group-item {
-    text-decoration-style: 
-} */
