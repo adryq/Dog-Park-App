@@ -1,11 +1,11 @@
 //api key storage
 var parkAPIKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"; //park api key
 var parkAPIURL = "https://developer.nps.gov/api/v1/parks?stateCode="; // park url
-var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
+//var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
 
 //saving variables
 var pastSearchButtonEl = document.querySelector("#searched-states");
-var Abreviation = [];
+var Abreviation = JSON.parse(localStorage.getItem('State selected:')) || [];
 
 var stateCode;
 var parkEl;
@@ -104,7 +104,7 @@ function changeResult() {
 
   Abreviation.unshift({ stateCode });
   saveSearch();
-  pastSearch(stateCode);
+  pastSearch();
 }
 
 //save to local storage
@@ -192,33 +192,40 @@ var convertKtoF = function (kelvin) {
 };
 
 //pulling local storage of past searched states and displaying on bar
-var pastSearch = function (pastSearch) {
-  pastEl = document.createElement("button");
-  pastEl.textContent = pastSearch;
-  pastEl.classList =
-    "bg-green-100 flex:row flex-col rounded mt-1 ml-10 p-2 w-32 text-sm";
-  pastEl.setAttribute("data-state", pastSearch);
-  pastEl.setAttribute("type", "submit");
+var pastSearch = function () {
+  pastSearchButtonEl.innerHTML = ''
+  var localPast = JSON.parse(localStorage.getItem('State selected:'))
+  for (let i = 0; i < localPast.length; i++) {
+    pastEl = document.createElement("button");
+    pastEl.textContent = localPast[i].stateCode;
+    pastEl.classList =
+      "bg-green-100 flex:row flex-col rounded mt-1 ml-10 p-2 w-32 text-sm";
+    pastEl.setAttribute("data-state", localPast[i].stateCode);
+    pastEl.setAttribute("type", "submit");
+    pastSearchButtonEl.prepend(pastEl);
+    
+  }
 
-  pastSearchButtonEl.prepend(pastEl);
+
+
 };
 
 var pastSearchHandler = function (event) {
   var stateCode = event.target.getAttribute("data-state");
+  var localPast = JSON.parse(localStorage.getItem('State selected:'))
   if (stateCode) {
     getParkInfo(stateCode);
-    //Retrieve local storage using for loop localstorage.getItem(key)
-/** If the state the user clicks on is the same as one of the states in local storage don't run the api again  */
-  }else if(condition){
-    return 
+    for (i = 0; i< localPast.length; i++){
+      console.log(localPast[i].stateCode);
+      var myText = localPast[i].stateCode;
+      
+    }    
+
   }
 };
 
 pastSearchButtonEl.addEventListener("click", pastSearchHandler);
 showLocal()
 function showLocal(){
-  var localPast = localStorage.getItem('State selected:')
-  console.log(localPast)
 }
-
-//Make h1 tag showing the states you choose
+pastSearch()
