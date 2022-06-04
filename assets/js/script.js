@@ -1,7 +1,7 @@
 //api key storage
 var parkAPIKey = "&api_key=ONqCMcecY29RtHlFW2uZcvjwuTM0lsk62DjxmdAs"; //park api key
 var parkAPIURL = "https://developer.nps.gov/api/v1/parks?stateCode="; // park url
-//var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
+var apiKey = "755c65e42d689835b8fd27ff1e21603c"; //weather api key
 
 //saving variables
 var pastSearchButtonEl = document.querySelector("#searched-states");
@@ -205,9 +205,6 @@ var pastSearch = function () {
     pastSearchButtonEl.prepend(pastEl);
     
   }
-
-
-
 };
 
 var pastSearchHandler = function (event) {
@@ -218,9 +215,7 @@ var pastSearchHandler = function (event) {
     for (i = 0; i< localPast.length; i++){
       console.log(localPast[i].stateCode);
       var myText = localPast[i].stateCode;
-      
     }    
-
   }
 };
 
